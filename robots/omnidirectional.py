@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
-from wheels import SwedishWheel
-from platform import Platform
+from .wheels import SwedishWheel
+from .platform import Platform
 from numpy import array, cos, sin, pi, sqrt
 import numpy as np
 
@@ -17,7 +17,7 @@ class OmniDirectinalRobot(Platform):
     -------
     """
 
-    def __init__(self, w_radii, first_wheel_position, velocities=[4, 1, 2]):
+    def __init__(self, w_radii, first_wheel_position):
         """
         Parameters
         ----------
@@ -30,7 +30,7 @@ class OmniDirectinalRobot(Platform):
         l, first_alpha = first_wheel_position
         for i in range(3):
             alpha = first_alpha + (2 * pi / 3) * i
-            wheel = SwedishWheel(w_radii, (l, alpha), w=velocities[i])
+            wheel = SwedishWheel(w_radii, (l, alpha))
             wheels.append(wheel)
         super().__init__(*wheels)
 
@@ -48,5 +48,9 @@ if __name__ == "__main__":
     r = 1
     robot = OmniDirectinalRobot(r, (l, pi / 3))
     # print(np.around(robot.kinematics, 3))
-    print(robot.forward)
+    print(robot.state)
+    # robot.state = [1.15470054, -1.33333333, -2.33333333]
+    robot.inverse([1.15470054, -1.33333333, -2.33333333])
+
+    # print(robot.forward)
     # print(robot.inverse(2, 0, 0))

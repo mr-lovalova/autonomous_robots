@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 import numpy as np
+from numpy import cos, sin
 
 
 class Platform(ABC):
@@ -30,27 +31,42 @@ class Platform(ABC):
 
     @R.setter
     def R(self, theta):
-        # TODO add functionalty to change rotation matrix
-        pass
+        self._R = np.array(
+            [
+                [cos(theta), sin(theta), 0],
+                [-sin(theta), cos(theta), 0],
+                [0, 0, 1],
+            ]
+        )
 
     @property
-    def wheels_w(self):
-        state = [[wheel.w] for wheel in self.wheels]
-        return np.array(state)
+    def state(self):
+        """xdot, ydot, thetadot, in robot frame"""
+        w = np.array([[wheel.w] for wheel in self.wheels])
+        _state = np.linalg.inv(self.kinematics) @ self.radii @ w
+        return _state
+
+    @state.setter
+    def state(self, new):
+        """takes tuple of desired state (xdot,ydot,thetadot) in robot frame"""
+        # new = np.array([[val] for val in new])
+        w = np.linalg.inv(self.radii) @ self.kinematics @ new
+        for count, wheel in enumerate(self.wheels):
+            wheel.w = w[count][0]
 
     @property
     def forward(self):
         """Calculate world velocity from wheel velocies
         thus p is the vector  = [omega1, omega2, ... for all wheels]
         """
-        w = self.wheels_w
-        v_world = (
-            np.linalg.inv(self.R) @ np.linalg.inv(self.kinematics) @ self.radii @ w
-        )
+        v_world = np.linalg.inv(self.R) @ self.state
         return v_world
 
-    def inverse(self, xdot, ydot, thetadot):
+    def inverse(self, v):
         """Calculate wheel velocties from linear world velocties"""
-        v = np.array([[xdot], [ydot], [thetadot]])
-        v_world = np.linalg.inv(self.radii) @ self.kinematics @ self.R @ v
-        return v_world
+        v = np.array([[val] for val in v])
+        v_robot = np.linalg.inv(self.radii) @ self.kinematics @ self.R @ v
+        self.state = self.R @ v
+        print("STATE", self.state)
+        print("V", v_robot)
+        return v_robot
