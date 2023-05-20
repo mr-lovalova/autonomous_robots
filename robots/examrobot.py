@@ -41,4 +41,4 @@ if __name__ == "__main__":
     robot = ExamRobot()
     print(np.around(robot.kinematics, 3))
     print(robot.forward)
-    print(robot.inverse(0.2236, 0.4472, 0))
+    # print(robot.inverse(0.2236, 0.4472, 0))

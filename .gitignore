@@ -1,3 +1,5 @@
 .vscode/
 calculations.py
+__pycache__/
 .venv
+.sqline.py
