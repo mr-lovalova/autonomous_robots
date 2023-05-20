@@ -13,7 +13,7 @@ class ExamRobot(Platform):
     @property
     def forward(self):
         """Calculate world velocity from kinematics"""
-        w = w = np.array([[wheel.w] for wheel in self.wheels])
+        w = np.array([[wheel.w] for wheel in self.wheels])
         v_world = np.linalg.inv(self.R) @ np.linalg.inv(self.kinematics) @ w
         return v_world
 

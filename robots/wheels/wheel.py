@@ -5,8 +5,7 @@ from numpy import array
 
 class Wheel(ABC):
     """a wheel is fixed to the platforms by a polar coordinate" (l,alpha)
-    r = radius of wheel
-    initial_vel = speed of wheel"""
+    r = radius of wheel"""
 
     def __init__(self, r, pos, **kwargs):
         w = kwargs.get("w", 0)
@@ -44,10 +43,6 @@ class Wheel(ABC):
     @property
     def b(self):
         return self._b
-
-    @b.setter
-    def b(self, value):
-        self._b = value
 
     def __str__(self):
         return f"A {self.type_} with radius: {self.r}, ang_velocity: {self.w}"

@@ -1,19 +1,28 @@
 from abc import ABC, abstractmethod
 
-from .wheel import Wheel
+from wheel import Wheel
+import numpy as np
+from numpy import sin, cos
 
 
-class StandardWheel(Wheel):
-    def _make_constraints(self, pos):
-        l, a = pos
-        crolling = Matrix(
-            [sin(a + self.beta), -cos(a + self.beta), -l * cos(self.beta)]
-        ).T
-        cslide = Matrix([cos(a + self.beta), sin(a + self.beta), l * sin(self.beta)]).T
-        return crolling, cslide
+class FixedStandardWheel(Wheel):
+    type_ = "StandardWheel"
+
+    def __init__(self, r, pos, b, **kwargs):
+        super().__init__(r, pos, b=b, **kwargs)
+
+    def J(self):
+        l, a = self.pos
+        J = np.array([sin(a + self.b), -cos(a + self.b), -l * cos(self.b)])
+        return J
+
+    def C(self):
+        l, a = self.pos
+        C = np.array([cos(a + self.b), sin(a + self.b), l * sin(self.b)])
+        return C
 
 
-class FixedStandardWheel(StandardWheel):
-    def __init__(self, r, pos, b, vel=0):
-        super().__init__(r, pos, vel)
-        self.calc_constraints(b)
+class StandardWheel(FixedStandardWheel):
+    @Wheel.b.setter
+    def b(self, value):
+        self._b = value
