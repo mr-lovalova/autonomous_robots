@@ -22,7 +22,8 @@ class Platform(ABC):
     @property
     @abstractmethod
     def kinematics(self):
-        """robot kinematics described as J @"""
+        """should be a 3x3 matrix of rolling constraints and possibly sliding constraints
+        should have rank 3"""
         pass
 
     @property

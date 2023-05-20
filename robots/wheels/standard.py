@@ -6,7 +6,7 @@ from numpy import sin, cos
 
 
 class FixedStandardWheel(Wheel):
-    type_ = "StandardWheel"
+    type_ = "Fixed StandardWheel"
 
     def __init__(self, r, pos, b, **kwargs):
         super().__init__(r, pos, b=b, **kwargs)
@@ -23,6 +23,8 @@ class FixedStandardWheel(Wheel):
 
 
 class StandardWheel(FixedStandardWheel):
+    type_ = "Standard Wheel"
+
     @Wheel.b.setter
     def b(self, value):
         self._b = value
