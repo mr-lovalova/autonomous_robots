@@ -1,5 +1,5 @@
 import numpy as np
-from numpy import cos, sin, arccos, arcsin, arctan, tan
+from numpy import cos, sin, arccos, arcsin, arctan, tan, pi, sqrt
 from robots import ExamRobot2018, ExamRobot2021, OmniDirectinalRobot, TwoSteerRobot
 
 

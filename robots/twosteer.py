@@ -29,7 +29,7 @@ class TwoSteerRobot(Platform):
         l, first_alpha = first_wheel_pos
         for i in range(2):
             alpha = first_alpha - pi * i
-            wheel = StandardWheel(w_radii, (l, alpha))
+            wheel = StandardWheel(w_radii, (l, alpha), pi * i)
             wheels.append(wheel)
         super().__init__(*wheels)
 
@@ -37,10 +37,11 @@ class TwoSteerRobot(Platform):
     def kinematics(self):
         """should be a 3x3 matrix"""
         J = []
-        for wheel in self.wheels:
+        for count, wheel in enumerate(self.wheels):
+            if not count:
+                # adding slding constraint for last wheel ( same for both wheels)
+                J.append(wheel.C)
             J.append(wheel.J)
-        # adding slding constraint for last wheel ( same for both wheels)
-        J.append(wheel.C)
         J = np.array(J)
         return J
 

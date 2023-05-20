@@ -44,6 +44,9 @@ class Platform(ABC):
     def state(self):
         """xdot, ydot, thetadot, in robot frame"""
         w = np.array([[wheel.w] for wheel in self.wheels])
+        print(self.kinematics)
+        print(self.radii)
+        print(w)
         _state = np.linalg.inv(self.kinematics) @ self.radii @ w
         return _state
 
