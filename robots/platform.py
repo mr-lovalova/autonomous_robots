@@ -50,7 +50,7 @@ class Platform(ABC):
     @state.setter
     def state(self, new):
         """takes tuple of desired state (xdot,ydot,thetadot) in robot frame"""
-        # new = np.array([[val] for val in new])
+        new = np.array([[val] for val in new])
         w = np.linalg.inv(self.radii) @ self.kinematics @ new
         for count, wheel in enumerate(self.wheels):
             wheel.w = w[count][0]
@@ -64,10 +64,9 @@ class Platform(ABC):
         return v_world
 
     def inverse(self, v):
-        """Calculate wheel velocties from linear world velocties"""
+        """Calculate wheel velocties from linear world velocties
+        Does not just a static calculation, does not change robot state
+        should be removed from robot class and implemented in world class instad"""
         v = np.array([[val] for val in v])
         v_robot = np.linalg.inv(self.radii) @ self.kinematics @ self.R @ v
-        self.state = self.R @ v
-        print("STATE", self.state)
-        print("V", v_robot)
         return v_robot

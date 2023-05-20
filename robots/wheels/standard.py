@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from wheel import Wheel
+from .wheel import Wheel
 import numpy as np
 from numpy import sin, cos
 

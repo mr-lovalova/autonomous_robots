@@ -1,14 +1,12 @@
 from abc import ABC, abstractmethod
-from wheels import StandardWheel, SwedishWheel
-from platform import Platform
+from .wheels import StandardWheel
+from .platform import Platform
 import numpy as np
-from numpy import array, cos, sin, pi, sqrt
+from numpy import cos, sin, pi, sqrt
 
 
-class OmniDirectinalRobot(Platform):
+class TwoSteerRobot(Platform):
     """
-    A class to represent an omnidirectional robot
-    Each instance has 3 wheels, with 2*pi/3 radians apart
 
     Attributes
     ----------
@@ -17,39 +15,44 @@ class OmniDirectinalRobot(Platform):
     -------
     """
 
-    def __init__(self, w_radii, first_wheel_position):
+    def __init__(self, w_radii, first_wheel_pos):
         """
         Parameters
         ----------
-        first_wheel : str
+        front_wheel_pos : tuple
+            first wheel should not have a negative alpha
             a wheel is fixed to the platforms by a polar coordinate" (l,alpha)
-        w_radii : float or int
-            The radii of all the wheels on the robot
+        d : float or int
+            distance to fixed wheel
         """
         wheels = []
-        l, first_alpha = first_wheel_position
-        for i in range(3):
-            alpha = first_alpha + (2 * pi / 3) * i
-            wheel = SwedishWheel(w_radii, (l, alpha))
+        l, first_alpha = first_wheel_pos
+        for i in range(2):
+            alpha = first_alpha - pi * i
+            wheel = StandardWheel(w_radii, (l, alpha))
             wheels.append(wheel)
         super().__init__(*wheels)
 
     @property
     def kinematics(self):
+        """should be a 3x3 matrix"""
         J = []
         for wheel in self.wheels:
             J.append(wheel.J)
-        J = array(J)
+        # adding slding constraint for last wheel ( same for both wheels)
+        J.append(wheel.C)
+        J = np.array(J)
         return J
+
+    def steer(self):
+        pass
 
 
 if __name__ == "__main__":
     l = 1.0
     r = 1
-    robot = OmniDirectinalRobot(r, (l, pi / 3))
+    robot = TwoSteerRobot(r, (l, pi / 3))
     # print(np.around(robot.kinematics, 3))
     print(robot.state)
-    # robot.state = [1.15470054, -1.33333333, -2.33333333]
-    robot.inverse([1.15470054, -1.33333333, -2.33333333])
 
     # print(robot.forward)

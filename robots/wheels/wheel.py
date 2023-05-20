@@ -1,7 +1,5 @@
 from abc import ABC, abstractmethod
 
-from numpy import array
-
 
 class Wheel(ABC):
     """a wheel is fixed to the platforms by a polar coordinate" (l,alpha)
