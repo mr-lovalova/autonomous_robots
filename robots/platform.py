@@ -16,8 +16,7 @@ class Platform(ABC):
     def __init__(self, *wheels):
         """R is given as rotation from platform to world"""
         self.wheels = wheels
-        radii = [wheel.r for wheel in self.wheels]
-        self.radii = np.diag(radii)
+        self.radii = np.diag([wheel.r for wheel in self.wheels])
 
     @property
     @abstractmethod

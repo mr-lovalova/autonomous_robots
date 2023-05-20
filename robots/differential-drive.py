@@ -18,6 +18,7 @@ from platform import Platform
 
 
 class DifferentialDriveRobot(Platform):
+    # TODO not implemented
     def _get_constraints(self, *wheels):
         J = []
         Cn = []
