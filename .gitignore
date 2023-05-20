@@ -2,4 +2,4 @@
 calculations.py
 __pycache__/
 .venv
-.sqline.py
+sqline.py
