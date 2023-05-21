@@ -38,10 +38,10 @@ class TwoSteerRobot(Platform):
         """should be a 3x3 matrix"""
         J = []
         for count, wheel in enumerate(self.wheels):
-            if not count:
+            J.append(wheel.J)
+            if count:
                 # adding slding constraint for last wheel ( same for both wheels)
                 J.append(wheel.C)
-            J.append(wheel.J)
         J = np.array(J)
         return J
 
@@ -50,10 +50,4 @@ class TwoSteerRobot(Platform):
 
 
 if __name__ == "__main__":
-    l = 1.0
-    r = 1
-    robot = TwoSteerRobot(r, (l, pi / 3))
-    # print(np.around(robot.kinematics, 3))
-    print(robot.state)
-
-    # print(robot.forward)
+    pass

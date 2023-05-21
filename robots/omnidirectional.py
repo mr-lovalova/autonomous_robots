@@ -44,12 +44,4 @@ class OmniDirectinalRobot(Platform):
 
 
 if __name__ == "__main__":
-    l = 1.0
-    r = 1
-    robot = OmniDirectinalRobot(r, (l, pi / 3))
-    # print(np.around(robot.kinematics, 3))
-    # robot.state = [1.15470054, -1.33333333, -2.33333333]
-    print(robot.inverse([1.15470054, -1.33333333, -2.33333333]))
-
-    # print(robot.forward)
-    # print(robot.inverse(2, 0, 0))
+    pass

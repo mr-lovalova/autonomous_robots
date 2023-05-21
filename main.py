@@ -4,10 +4,8 @@ from robots import ExamRobot2018, ExamRobot2021, OmniDirectinalRobot, TwoSteerRo
 
 
 if __name__ == "__main__":
-    l = 1.0
-    r = 1
-    robot = TwoSteerRobot(r, (l, pi / 3))
-    # print(np.around(robot.kinematics, 3))
-    print(robot.state)
+    pass
 
-    # print(robot.forward)
+    # print(robot.inverse((2, 2, 0)))
+
+# print(robot.forward)
