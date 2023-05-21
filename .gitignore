@@ -3,3 +3,4 @@ calculations.py
 __pycache__/
 .venv
 sqline.py
+exam_functions/
