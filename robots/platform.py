@@ -6,7 +6,7 @@ from numpy import cos, sin
 class Platform(ABC):
     """need kinematics need to return an invertible matrix"""
 
-    _R = np.array(
+    _R = np.array(  ## should be moved to world
         [
             [1, 0, 0],
             [0, 1, 0],

@@ -48,3 +48,14 @@ class ExamRobot2021(ExamRobot):
         wheel2 = SwedishWheel(r, (l, -(2 * pi / 3)))
         wheel3 = SwedishWheel(r, (l, (2 * pi / 3)))
         super().__init__(wheel1, wheel2, wheel3)
+
+
+class ExamRobot2022(ExamRobot):
+    def __init__(self):
+        self.k = array([[0, -20, -3], [-10 * sqrt(3), 10, -3], [10 * sqrt(3), 10, -3]])
+        l = 1  # arbitrary value placeholder
+        r = self.k[0][-1] / l  ## placeholder
+        wheel1 = SwedishWheel(r, (l, 0))
+        wheel2 = SwedishWheel(r, (l, -(2 * pi / 3)))
+        wheel3 = SwedishWheel(r, (l, (2 * pi / 3)))
+        super().__init__(wheel1, wheel2, wheel3)
