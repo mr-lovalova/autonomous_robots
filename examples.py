@@ -1,15 +1,6 @@
 import numpy as np
 from robots import OmniDirectinalRobot, TwoSteerRobot
 
-
-def twosteer2021():
-    l = 0.3
-    robot = TwoSteerRobot(r, (l / 2, pi / 2))
-    robot.wheels[0].w = 1
-    robot.wheels[1].w = 0
-    print(robot.state)
-
-
 if __name__ == "__main__":
     # example of omndidiriction robot calculations
     l = 1
